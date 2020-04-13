@@ -1,0 +1,37 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<h3>Список новостей</h3><br>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Заголовок</th>
+        <th scope="col">Ссылка на новость</th>
+        <th scope="col">Статус</th>
+        <th scope="col">Источник</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+{% for item in news %}
+    <tr>
+        <th scope="row">{{ item.id }}</th>
+        <td>{{ item.title }}</td>
+        <td><a href="{{ item.url }}" target="_blank">Перейти</a></td>
+        <td>
+        {% if item.status == 0 %}
+            <p class="status status-null">Требует модерации</p>
+        {% elseif item.status == 1 %}
+            <p class="status status-ok">Отредактировано</p>
+        {% endif %}
+        </td>
+        <td>{{ item.source_name }}</td>
+        <td><a href="/editor.php?id={{ item.id }}">Редактировать</td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
